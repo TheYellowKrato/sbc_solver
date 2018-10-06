@@ -1,3 +1,5 @@
+from math import floor
+
 from Player import Player
 
 
@@ -14,11 +16,24 @@ class Squad:
         return str(self.__dict__)
 
     def get_global_rating(self):
-        global_rating = 0
+        sum_rating = 0
         for player in self.players:
-            global_rating = global_rating + player.rating
-            global_rating = global_rating / len(self.players)
-        return global_rating
+            sum_rating = sum_rating + player.rating
+
+        average_rating = sum_rating / len(self.players)
+
+        for player in self.players:
+            if player.rating > average_rating:
+                if self.players.index(player) < 11:
+                    sum_rating += player.rating - average_rating
+                else:
+                    sum_rating += .5 * (player.rating - average_rating)
+
+        rounded = round(sum_rating)
+
+        rating = min(max(floor(rounded / len(self.players)), 0), 99)
+
+        return rating
 
     def get_global_chemistry(self):
         pass
