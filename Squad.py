@@ -36,6 +36,13 @@ class Squad:
     def __repr__(self):
         return str(self.__dict__)
 
+    def load_players(self, players):
+        players.reverse()
+        for slot in self.slots:
+            if len(players) > 0:
+                player_to_load = players.pop()
+                slot.load_player(player_to_load)
+
     def get_global_rating(self):
         sum_rating = 0
         for slot in self.slots:
