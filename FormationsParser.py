@@ -100,4 +100,11 @@ class FormationsParser:
         for position in position_slots:
             positions.append(self.positions_data[position])
 
+        positions.reverse()
+
         return positions
+
+    def find_uniqueId_from_name(self, name):
+        for position in self.positions_data:
+            if position["typeName"] == name:
+                return position["uniqueId"]
